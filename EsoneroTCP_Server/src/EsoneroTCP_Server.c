@@ -107,14 +107,14 @@ int main(int argc, char *argv[]) {
 	}
 
 	struct sockaddr_in clientSocketAddress;
-	int clientSocket;	//This is the socket that will comunicate with the client
+	int clientSocket, clientAddressLength;	//This is the socket that will comunicate with the client
 
 	while (1) {
 		printf("Waiting For Client Connection...\n");
 
 		memset(&clientSocketAddress, 0, sizeof(clientSocketAddress));
 
-		int clientAddressLength = sizeof(clientSocketAddress);
+		clientAddressLength = sizeof(clientSocketAddress);
 
 		clientSocket = accept(welcomeSocket, (struct sockaddr *) &clientSocketAddress, &clientAddressLength);
 
