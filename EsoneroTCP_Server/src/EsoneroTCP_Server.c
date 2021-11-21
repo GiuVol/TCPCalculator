@@ -120,7 +120,7 @@ int main(int argc, char *argv[]) {
 
 		if (clientSocket < 0){
 			printf("Accept Failed.\n");
-			closesocket(clientSocket);
+			closesocket(clientSocket);	//If the accept fails, i close the clientSocket and wait for another connection
 			continue;
 		}
 
