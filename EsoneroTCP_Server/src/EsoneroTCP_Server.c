@@ -121,7 +121,6 @@ int main(int argc, char *argv[]) {
 		if (clientSocket < 0){
 			printf("Accept Failed.\n");
 			closesocket(clientSocket);
-			clearwinsock();
 			continue;
 		}
 
