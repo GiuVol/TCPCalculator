@@ -11,7 +11,6 @@
 #if defined WIN32
 #include <winsock.h>
 #else
-#include <string.h>
 #include <unistd.h>
 #include <sys/types.h>
 #include <sys/socket.h>
@@ -21,8 +20,10 @@
 #define closesocket close
 #endif
 
+#include <stdlib.h>
 #include <stdio.h>
 #include <math.h>
+#include <string.h>
 #include "ClientServerAgreement.h"
 
 #define ENDEDWITHERROR -1
@@ -219,11 +220,13 @@ void division(int firstOperand, int secondOperand, struct serverAnswer* result){
 		result->success = htonl(0);
 		strcpy(result->message, "Cannot divide by 0.");
 	} else {
-		float decimalValue = firstOperand / secondOperand;
+		float decimalValue = (float) firstOperand / (float) secondOperand;
 		int integralValue = (int) decimalValue;
 
 		result->result = htonl(integralValue);
 		result->success = htonl(1);
-		strcpy(result->message, "This result might be truncated, because this calculator only calculates the integral part.");
+
+		sprintf(result->message, "This result might be truncated, because this calculator only "
+						 	 	 "calculates the integral part.\nEffective Result: %0.2f", decimalValue);
 	}
 }
